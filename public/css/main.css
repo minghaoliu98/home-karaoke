@@ -1,0 +1,33 @@
+body {
+  background-color: black !important;
+  position: fixed;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+
+body, img, #cut{
+  width: 100%;
+}
+#info {
+  width: 20%;
+
+}
+body, #player, #info, #sub-info {
+  height: 100%;
+}
+#player{
+    left:0;
+    top:0;
+    width:80%;
+}
+#info, #sub-info {
+  display: flex;
+  flex-direction: column;
+}
+#playlist {
+  height: 90%;
+}
+#cut {
+  height: 10%;
+}
