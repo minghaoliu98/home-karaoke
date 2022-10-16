@@ -1,16 +1,13 @@
 'use strict';
 var tag;
 var player;
-var server_ip = "http://192.168.0.166:3000/"
-function myFunction() {
-
-}
+var server_ip = "http://192.168.0.159:3000";
 
 function upload() {
   var pattern = /^((http|https|ftp):\/\/)/;
   var link = document.getElementById("link");
   if (link && link.value) {
-    var url = server_ip + "load/" + youtube_parser(link.value);
+    var url = server_ip + "/load/" + youtube_parser(link.value);
     console.log(url);
     fetch(url)
       .then(response => {

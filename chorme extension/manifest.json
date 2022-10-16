@@ -1,13 +1,13 @@
 {
   "manifest_version": 3,
-  "name": "Hello Extensions",
-  "description": "Base Level Extension",
+  "name": "My Karaoke",
+  "description": "Please refer git hub for full description and manual: https://github.com/minghaoliu98/home-karaoke",
   "version": "1.0",
   "permissions": [
       "tabs"
     ],
   "action": {
     "default_popup": "index.html",
-    "default_icon": "/img/qr.png"
+    "default_icon": "/img/logo.png"
   }
 }

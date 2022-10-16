@@ -26,20 +26,47 @@ function onInit() {
   playlist = document.getElementById("playlist");
   playlist.textContent = "";
   button.addEventListener("click", cut);
-  var url = "http://localhost:3000/playlist/";
-
-  fetch(url)
+  //load playlist
+  fetch("http://localhost:3000/playlist/")
     .then(response => {
       return response.json();
     })
     .then(data => {
       var arr = JSON.parse(data.playlist);
       arr.forEach((element, i) => {
-        const para = document.createElement("li");
+        const para = document.createElement("h3");
         para.classList.add("list-group-item");
         para.textContent = element;
+
+        para.onmouseenter = function() {
+          var intr = setInterval(function() {
+            para.scrollLeft += 1;
+            if (++i == 1000) clearInterval(intr);
+          }, 8)
+        };
+
         playlist.appendChild(para);
       });
+
+    })
+    .catch(error => {
+        alert(error);
+    });
+    //load ip address
+  fetch("http://localhost:3000/ip/")
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      var qrcode = new QRCode(document.getElementById("qrcode"), {
+      	text: data.ip,
+      	width: 128,
+      	height: 128,
+      	colorDark : "#000000",
+      	colorLight : "#ffffff",
+      	correctLevel : QRCode.CorrectLevel.H
+      });
+
 
     })
     .catch(error => {
