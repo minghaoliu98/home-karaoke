@@ -14,7 +14,7 @@ what u need:
 how to use:
 
 1. Change the server_ip in the public/js/user.js file to your computer with nodejs IPV4 Address
-2. use your server_ip and port as url to generate your own qr code and replace the one in img folder
+2. use your server_ip and port as url to generate your own qr code and replace the one in /chorme extension/img folder
 3. run nodejs on the app.js file -> CD to your current folder -> CMD: node app.js
 4. run google chorme and add plugin from the chorme extension folder
 5. pin the karaoke plug in to your chorme browser

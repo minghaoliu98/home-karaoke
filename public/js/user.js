@@ -1,8 +1,7 @@
 'use strict';
 var tag;
 var player;
-var server_ip = "http://localhost";
-var port = 3000;
+var server_ip = "http://192.168.0.166:3000/"
 function myFunction() {
 
 }
@@ -11,7 +10,8 @@ function upload() {
   var pattern = /^((http|https|ftp):\/\/)/;
   var link = document.getElementById("link");
   if (link && link.value) {
-    var url = server_ip + ":" + port + "/load/" + youtube_parser(link.value);
+    var url = server_ip + "load/" + youtube_parser(link.value);
+    console.log(url);
     fetch(url)
       .then(response => {
         return response.json()
@@ -25,7 +25,12 @@ function upload() {
   } else {
     alert("Please Enter a Youtube URL");
   }
-
+  link.value = "";
+  var button = document.getElementById("sub_btn");
+  button.disabled = true;
+  setTimeout(() => {
+    button.disabled = false;
+  }, "1000");
 }
 
 function youtube_parser(url){
