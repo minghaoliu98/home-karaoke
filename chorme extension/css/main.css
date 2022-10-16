@@ -1,0 +1,20 @@
+body {
+  width: 250px;
+  max-height: 500px;
+}
+#playlist {
+  max-height: 300px;
+  overflow-y: hidden;
+
+}
+img, #cut{
+  width: 100%;
+}
+#info, #sub-info {
+  height: 100%;
+}
+
+#body, #sub-info {
+  display: flex;
+  flex-direction: column;
+}

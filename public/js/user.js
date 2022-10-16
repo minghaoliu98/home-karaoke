@@ -1,25 +1,23 @@
 'use strict';
 var tag;
 var player;
-var h = "http://localhost:3000/"
+var server_ip = "http://localhost";
+var port = 3000;
 function myFunction() {
 
 }
 
-
-
 function upload() {
-
   var pattern = /^((http|https|ftp):\/\/)/;
   var link = document.getElementById("link");
   if (link && link.value) {
-    var url = h + "load/" + youtube_parser(link.value);
+    var url = server_ip + ":" + port + "/load/" + youtube_parser(link.value);
     fetch(url)
       .then(response => {
         return response.json()
       })
       .then(data => {
-        alert("Video ID: " + data.new_song + "has Loaded");
+        alert("Video ID: " + data.new_song + " has Loaded");
       })
       .catch(error => {
           alert(error);
