@@ -1,7 +1,7 @@
 'use strict';
 var tag;
 var player;
-var server_ip = "http://192.168.0.159:3000";
+var server_ip = "http://192.168.0.166:3000";
 
 function upload() {
   var pattern = /^((http|https|ftp):\/\/)/;
