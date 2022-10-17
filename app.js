@@ -19,6 +19,12 @@ app.get('/load/:id', (req, res) => {
     links.push(req.params.id);
     title.push(videoInfo.title);
     res.json({"new_song": videoInfo.title});
+    console.log("---------------");
+    console.log(links);
+    console.log(title);
+
+    console.log("---------------");
+
   });
 
 })
@@ -31,7 +37,9 @@ app.get('/ip', (req, res) => {
 app.get('/playlist', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.json({"playlist": JSON.stringify(title)})
-  console.log(title)
+  console.log("---------------");
+  console.log(title);
+  console.log("---------------");
 })
 
 app.get('/next', (req, res) => {
@@ -41,7 +49,6 @@ app.get('/next', (req, res) => {
   if (string == null) {
     string = "7nCg51FXdp0";
   }
-  console.log(string)
   res.json({"next_song": string})
 })
 

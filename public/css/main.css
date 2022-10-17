@@ -1,33 +1,22 @@
-body {
-  background-color: black !important;
-  position: fixed;
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-}
-
-body, img, #cut{
+#playlist {
   width: 100%;
-}
-#info {
-  width: 20%;
-
-}
-body, #player, #info, #sub-info {
-  height: 100%;
-}
-#player{
-    left:0;
-    top:0;
-    width:80%;
-}
-#info, #sub-info {
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
 }
-#playlist {
-  height: 90%;
+
+.list-group-item {
+  margin-right: 10px;
+  white-space: nowrap;
+  text-overflow: clip;
+  max-width: 100%;
+  overflow-x:hidden;
+  height: 40px;
 }
-#cut {
-  height: 10%;
+
+body {
+  display: fixed;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
