@@ -14,12 +14,11 @@ app.get('/', (req, res) => {
 
 app.get('/load/:id', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  links.push(req.params.id);
   fetchVideoInfo(req.params.id, function (err, videoInfo) {
     if (err) throw new Error(err);
-    res.json({"new_song": videoInfo.title});
     links.push(req.params.id);
     title.push(videoInfo.title);
+    res.json({"new_song": videoInfo.title});
   });
 
 })
@@ -32,17 +31,17 @@ app.get('/ip', (req, res) => {
 app.get('/playlist', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.json({"playlist": JSON.stringify(title)})
+  console.log(title)
 })
 
 app.get('/next', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-
   var string = links.shift();
-  title.shift();
+  var name = title.shift();
   if (string == null) {
-    string = "GeNIpOsmEwA";
-    title = ["恋曲1990"]
+    string = "7nCg51FXdp0";
   }
+  console.log(string)
   res.json({"next_song": string})
 })
 
@@ -52,7 +51,6 @@ app.listen(port, () => {
     ip: ip
   };
   fs.writeFileSync('./public/myip.json', JSON.stringify(data));
-
   console.log(`Example app listening on ${ip}`)
 })
 

@@ -41,7 +41,6 @@ function onInit() {
         const para = document.createElement("h3");
         para.classList.add("list-group-item");
         para.textContent = element;
-
         para.onmouseenter = function() {
           var intr = setInterval(function() {
             para.scrollLeft += 1;
@@ -56,7 +55,7 @@ function onInit() {
     .catch(error => {
         alert(error);
     });
-    //load ip address
+    //load ip address to create qr code
   fetch("http://localhost:3000/ip/")
     .then(response => {
       return response.json();
