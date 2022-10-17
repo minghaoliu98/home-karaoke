@@ -14,9 +14,9 @@
     "service_worker": "/js/background.js"
   },
   "commands": {
-    "next_song": {
-      "suggested_key": "Ctrl+Q",
-      "description": "move to next song"
+    "inject-script": {
+      "suggested_key": "Ctrl+Shift+Y",
+      "description": "Inject a script on the page"
     }
   }
 }
