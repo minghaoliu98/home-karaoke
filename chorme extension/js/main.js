@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', onInit, false);
 
+
 var button;
 var playlist;
 function cut() {
@@ -22,6 +23,9 @@ function cut() {
 }
 
 function onInit() {
+  var today = new Date();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  console.log(time);
   button = document.getElementById("cut");
   playlist = document.getElementById("playlist");
   playlist.textContent = "";

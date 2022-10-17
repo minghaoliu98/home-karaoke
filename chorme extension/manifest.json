@@ -4,10 +4,19 @@
   "description": "Please refer git hub for full description and manual: https://github.com/minghaoliu98/home-karaoke",
   "version": "1.0",
   "permissions": [
-      "tabs"
+      "tabs", "commands"
     ],
   "action": {
     "default_popup": "index.html",
-    "default_icon": "/img/logo.jpg"
+    "default_icon": "/img/logo.png"
+  },
+  "background": {
+    "service_worker": "/js/background.js"
+  },
+  "commands": {
+    "next_song": {
+      "suggested_key": "Ctrl+Q",
+      "description": "move to next song"
+    }
   }
 }

@@ -20,4 +20,4 @@ how to use:
 5. pin the karaoke plug in to your chorme browser
 6. add youtube link from cellphone from the qrcode website
 7. you can see the newest playlist when you click the logo from plugin(or try refresh the who page)
-8. use "切歌" button to move to the next song
+8. use "切歌" button or (ctrl/command + q) to move to the next song
