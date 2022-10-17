@@ -19,12 +19,6 @@ app.get('/load/:id', (req, res) => {
     links.push(req.params.id);
     title.push(videoInfo.title);
     res.json({"new_song": videoInfo.title});
-    console.log("---------------");
-    console.log(links);
-    console.log(title);
-
-    console.log("---------------");
-
   });
 
 })

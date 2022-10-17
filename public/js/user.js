@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', init, { once: true });
 
 function init() {
   if (first == null) {
-    console.log("hi");
     playlist = document.getElementById("playlist");
     loadPlaylist();
     first = true;
@@ -27,7 +26,7 @@ function loadPlaylist() {
       var arr = JSON.parse(data.playlist);
       playlist.textContent = "";
       arr.forEach((element, i) => {
-        const para = document.createElement("h3");
+        const para = document.createElement("li");
         para.classList.add("list-group-item");
         para.textContent = element;
         para.onmouseenter = function() {

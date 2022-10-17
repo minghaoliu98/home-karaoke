@@ -1,17 +1,9 @@
-#playlist {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-}
-
 .list-group-item {
+
   margin-right: 10px;
   white-space: nowrap;
-  text-overflow: clip;
-  max-width: 100%;
   overflow-x:hidden;
-  height: 40px;
+  user-select: None;
 }
 
 body {
