@@ -5,6 +5,9 @@ var server_ip = " http://192.168.0.131:3000";
 var playlist;
 var first;
 var timer;
+var pressTimer;
+
+
 document.addEventListener('DOMContentLoaded', init, { once: true });
 
 function init() {
@@ -16,6 +19,23 @@ function init() {
 
 }
 
+function removeSong(title, id) {
+  if (confirm("Do u want to delete the song: \n" + title)) {
+    var url = server_ip + "/delete/" + id;
+    fetch(url)
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        alert(data.deleted_song + " has removed")
+        loadPlaylist();
+      })
+      .catch(error => {
+          alert(error);
+      });
+  }
+
+}
 
 function loadPlaylist() {
   fetch(server_ip + "/playlist/")
@@ -35,10 +55,14 @@ function loadPlaylist() {
             para.scrollLeft += 1;
             if (++i == 1000) clearInterval(intr);
           }, 8)
-          para.onmouseout = function() {
-            para.scrollLeft = 0;
-            clearInterval(intr);
-          };
+          pressTimer = window.setTimeout(() => {
+            removeSong(this.innerHTML, this.id);
+          },2000);
+        para.onmouseout = function() {
+          para.scrollLeft = 0;
+          clearInterval(intr);
+          clearTimeout(pressTimer);
+        };
         };
         playlist.appendChild(para);
       });
@@ -67,7 +91,6 @@ function upload() {
     alert("Please Enter a Youtube URL");
   }
   link.value = "";
-
   var button = document.getElementById("sub_btn");
   button.disabled = true;
   setTimeout(() => {
