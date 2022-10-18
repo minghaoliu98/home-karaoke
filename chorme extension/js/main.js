@@ -1,10 +1,27 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', onInit, false);
-
-
 var button;
 var playlist;
+
+function moveToTop() {
+  if (confirm("Do u want to move it to the top of queue: \n" + this.innerHTML)) {
+    var url = "http://localhost:3000/move_to_top/" + this.id;
+    fetch(url)
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        loadPlaylist();
+      })
+      .catch(error => {
+          alert(error);
+      });
+  }
+
+}
+
+
 function cut() {
   var url = "http://localhost:3000/next/";
   fetch(url)
@@ -22,20 +39,13 @@ function cut() {
     });
 }
 
-function onInit() {
-  var today = new Date();
-  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  console.log(time);
-  button = document.getElementById("cut");
-  playlist = document.getElementById("playlist");
-  playlist.textContent = "";
-  button.addEventListener("click", cut);
-  //load playlist
+function loadPlaylist() {
   fetch("http://localhost:3000/playlist/")
     .then(response => {
       return response.json();
     })
     .then(data => {
+      playlist.textContent = "";
       var arr = JSON.parse(data.playlist);
       arr.forEach((song_info, i) => {
         const para = document.createElement("li");
@@ -48,7 +58,7 @@ function onInit() {
             if (++i == 1000) clearInterval(intr);
           }, 8)
         };
-
+        para.addEventListener("click", moveToTop);
         playlist.appendChild(para);
       });
 
@@ -56,6 +66,18 @@ function onInit() {
     .catch(error => {
         alert(error);
     });
+}
+
+function onInit() {
+  var today = new Date();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  console.log(time);
+  button = document.getElementById("cut");
+  playlist = document.getElementById("playlist");
+
+  button.addEventListener("click", cut);
+  //load playlist
+  loadPlaylist();
     //load ip address to create qr code
   fetch("http://localhost:3000/ip/")
     .then(response => {

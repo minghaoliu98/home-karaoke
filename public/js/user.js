@@ -1,7 +1,7 @@
 'use strict';
 var tag;
 var player;
-var server_ip = "http://10.18.5.28:3000";
+var server_ip = " http://192.168.0.131:3000";
 var playlist;
 var first;
 var timer;
@@ -16,9 +16,6 @@ function init() {
 
 }
 
-function delete() {
-  
-}
 
 function loadPlaylist() {
   fetch(server_ip + "/playlist/")
@@ -56,13 +53,12 @@ function upload() {
   var link = document.getElementById("link");
   if (link && link.value) {
     var url = server_ip + "/load/" + youtube_parser(link.value);
-    console.log(url);
     fetch(url)
       .then(response => {
         return response.json()
       })
       .then(data => {
-        alert("Video ID: " + data.new_song + " has Loaded");
+        alert("Video: " + data.new_song + " has Loaded");
       })
       .catch(error => {
           alert(error);
