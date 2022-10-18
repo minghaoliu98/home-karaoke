@@ -37,6 +37,46 @@ function removeSong(title, id) {
 
 }
 
+function loadPlaylistItem(arr) {
+  playlist.textContent = "";
+  arr.forEach((song_info, i) => {
+    const para = document.createElement("li");
+    para.classList.add("list-group-item");
+    para.textContent = song_info.title;
+    para.id = song_info.id
+    para.ontouchstart = function() {
+      var intr = setInterval(function() {
+        para.scrollLeft += 1;
+        if (++i == 1000) clearInterval(intr);
+      }, 8)
+      pressTimer = window.setTimeout(() => {
+        removeSong(this.innerHTML, this.id);
+      },1000);
+    };
+    para.ontouchend = function() {
+      para.scrollLeft = 0;
+      clearTimeout(pressTimer);
+    };
+    para.onmousedown = function() {
+      var intr = setInterval(function() {
+        para.scrollLeft += 1;
+        if (++i == 1000) clearInterval(intr);
+      }, 8)
+      pressTimer = window.setTimeout(() => {
+        removeSong(this.innerHTML, this.id);
+      },1000);
+    };
+    para.onmouseup = function() {
+      para.scrollLeft = 0;
+      clearTimeout(pressTimer);
+    };
+    playlist.appendChild(para);
+  });
+
+
+
+}
+
 function loadPlaylist() {
   fetch(server_ip + "/playlist/")
     .then(response => {
@@ -44,28 +84,7 @@ function loadPlaylist() {
     })
     .then(data => {
       var arr = JSON.parse(data.playlist);
-      playlist.textContent = "";
-      arr.forEach((song_info, i) => {
-        const para = document.createElement("li");
-        para.classList.add("list-group-item");
-        para.textContent = song_info.title;
-        para.id = song_info.id
-        para.onmouseenter = function() {
-          var intr = setInterval(function() {
-            para.scrollLeft += 1;
-            if (++i == 1000) clearInterval(intr);
-          }, 8)
-          pressTimer = window.setTimeout(() => {
-            removeSong(this.innerHTML, this.id);
-          },2000);
-        para.onmouseout = function() {
-          para.scrollLeft = 0;
-          clearInterval(intr);
-          clearTimeout(pressTimer);
-        };
-        };
-        playlist.appendChild(para);
-      });
+      loadPlaylistItem(arr);
     })
     .catch(error => {
         alert(error);
