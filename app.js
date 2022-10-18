@@ -3,8 +3,8 @@ const fs = require('fs')
 const app = express()
 var fetchVideoInfo = require('updated-youtube-info');
 const port = 3000
-var links = []
-var title = []
+var playlist = [];
+var default_song = "7nCg51FXdp0";
 var ip
 app.use(express.static('public'))
 
@@ -16,8 +16,11 @@ app.get('/load/:id', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   fetchVideoInfo(req.params.id, function (err, videoInfo) {
     if (err) throw new Error(err);
-    links.push(req.params.id);
-    title.push(videoInfo.title);
+    let data = {
+      id: req.params.id,
+      title: videoInfo.title
+    };
+    playlist.push(data)
     res.json({"new_song": videoInfo.title});
   });
 
@@ -30,20 +33,17 @@ app.get('/ip', (req, res) => {
 
 app.get('/playlist', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.json({"playlist": JSON.stringify(title)})
-  console.log("---------------");
-  console.log(title);
-  console.log("---------------");
+  res.json({"playlist": JSON.stringify(playlist)})
 })
 
 app.get('/next', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  var string = links.shift();
-  var name = title.shift();
-  if (string == null) {
-    string = "7nCg51FXdp0";
+  var data = playlist.shift();
+  if (data == null) {
+    res.json({"next_song": default_song});
+  } else {
+    res.json({"next_song": data.id})
   }
-  res.json({"next_song": string})
 })
 
 app.listen(port, () => {

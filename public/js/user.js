@@ -1,7 +1,7 @@
 'use strict';
 var tag;
 var player;
-var server_ip = "http://192.168.0.159:3000";
+var server_ip = "http://10.18.5.28:3000";
 var playlist;
 var first;
 var timer;
@@ -17,7 +17,6 @@ function init() {
 }
 
 function loadPlaylist() {
-  console.log("update play list");
   fetch(server_ip + "/playlist/")
     .then(response => {
       return response.json();
@@ -25,10 +24,11 @@ function loadPlaylist() {
     .then(data => {
       var arr = JSON.parse(data.playlist);
       playlist.textContent = "";
-      arr.forEach((element, i) => {
+      arr.forEach((song_info, i) => {
         const para = document.createElement("li");
         para.classList.add("list-group-item");
-        para.textContent = element;
+        para.textContent = song_info.title;
+        para.id = song_info.id
         para.onmouseenter = function() {
           var intr = setInterval(function() {
             para.scrollLeft += 1;

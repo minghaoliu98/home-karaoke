@@ -37,10 +37,11 @@ function onInit() {
     })
     .then(data => {
       var arr = JSON.parse(data.playlist);
-      arr.forEach((element, i) => {
-        const para = document.createElement("h3");
+      arr.forEach((song_info, i) => {
+        const para = document.createElement("li");
         para.classList.add("list-group-item");
-        para.textContent = element;
+        para.textContent = song_info.title;
+        para.id = song_info.id;
         para.onmouseenter = function() {
           var intr = setInterval(function() {
             para.scrollLeft += 1;
