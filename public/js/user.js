@@ -1,10 +1,13 @@
 'use strict';
 var tag;
 var player;
-var server_ip = "http://10.18.5.28:3000";
+var server_ip = " http://192.168.0.131:3000";
 var playlist;
 var first;
 var timer;
+var pressTimer;
+
+
 document.addEventListener('DOMContentLoaded', init, { once: true });
 
 function init() {
@@ -16,8 +19,22 @@ function init() {
 
 }
 
-function delete() {
-  
+function removeSong(title, id) {
+  if (confirm("Do u want to delete the song: \n" + title)) {
+    var url = server_ip + "/delete/" + id;
+    fetch(url)
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        alert(data.deleted_song + " has removed")
+        loadPlaylist();
+      })
+      .catch(error => {
+          alert(error);
+      });
+  }
+
 }
 
 function loadPlaylist() {
@@ -38,10 +55,14 @@ function loadPlaylist() {
             para.scrollLeft += 1;
             if (++i == 1000) clearInterval(intr);
           }, 8)
-          para.onmouseout = function() {
-            para.scrollLeft = 0;
-            clearInterval(intr);
-          };
+          pressTimer = window.setTimeout(() => {
+            removeSong(this.innerHTML, this.id);
+          },2000);
+        para.onmouseout = function() {
+          para.scrollLeft = 0;
+          clearInterval(intr);
+          clearTimeout(pressTimer);
+        };
         };
         playlist.appendChild(para);
       });
@@ -56,13 +77,12 @@ function upload() {
   var link = document.getElementById("link");
   if (link && link.value) {
     var url = server_ip + "/load/" + youtube_parser(link.value);
-    console.log(url);
     fetch(url)
       .then(response => {
         return response.json()
       })
       .then(data => {
-        alert("Video ID: " + data.new_song + " has Loaded");
+        alert("Video: " + data.new_song + " has Loaded");
       })
       .catch(error => {
           alert(error);
@@ -71,7 +91,6 @@ function upload() {
     alert("Please Enter a Youtube URL");
   }
   link.value = "";
-
   var button = document.getElementById("sub_btn");
   button.disabled = true;
   setTimeout(() => {

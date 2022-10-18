@@ -20,7 +20,7 @@ app.get('/move_to_top/:id', (req, res) => {
     title: title
   }
   playlist.splice(0, 0, new_top_queue);
-  res.json({"new_top_queue": cond});
+  res.json({"new_top_queue": title});
 })
 
 app.get('/delete/:id', (req, res) => {
