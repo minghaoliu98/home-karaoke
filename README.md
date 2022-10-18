@@ -21,6 +21,7 @@ how to use:
 6. add youtube link from cellphone from the qrcode website
 7. you can see the newest playlist when you click the logo from plugin(or try refresh the who page)
 8. use "切歌" button or (ctrl/command + shift + Y) to move to the next song
+
 addition feature:
 1. long hold a music title in the qrcode website to remove a music from the server new_top_queue
 2. click a music title in the chorme extension to move a music to the top of queue
