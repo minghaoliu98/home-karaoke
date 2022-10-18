@@ -16,6 +16,10 @@ function init() {
 
 }
 
+function delete() {
+  
+}
+
 function loadPlaylist() {
   fetch(server_ip + "/playlist/")
     .then(response => {
@@ -39,7 +43,6 @@ function loadPlaylist() {
             clearInterval(intr);
           };
         };
-
         playlist.appendChild(para);
       });
     })

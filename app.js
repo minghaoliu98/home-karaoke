@@ -12,6 +12,43 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+app.get('/move_to_top/:id', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  var title = deleteHelper(req.params.id);
+  let new_top_queue = {
+    id: req.params.id,
+    title: title
+  }
+  playlist.splice(0, 0, new_top_queue);
+  res.json({"new_top_queue": cond});
+})
+
+app.get('/delete/:id', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  var title = deleteHelper(req.params.id);
+  res.json({"deleted_song": title});
+})
+
+
+function deleteHelper(id) {
+  var index = -1;
+  var title = ""
+  for (let i = 0; i < playlist.length; i++) {
+    if (playlist[i].id == id) {
+      index = i;
+      title = playlist[i].title;
+      break;
+    }
+  }
+  if (index != -1) {
+    playlist.splice(index, 1);
+    return title;
+  } else {
+    throw new Error("No such Video exist in the list");
+  }
+}
+
+
 app.get('/load/:id', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   fetchVideoInfo(req.params.id, function (err, videoInfo) {
