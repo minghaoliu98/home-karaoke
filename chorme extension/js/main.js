@@ -21,6 +21,10 @@ function moveToTop() {
 
 }
 
+function handleError() {
+  chrome.tabs.create({ url: "https://github.com/minghaoliu98/home-karaoke"});
+  alert("You havn't set up the Server yet: \nPlease follow github.com/minghaoliu98/home-karaoke to install and start server");
+}
 
 function cut() {
   var url = "http://localhost:3000/next/";
@@ -35,7 +39,7 @@ function cut() {
       chrome.tabs.create({ url: "https://www.youtube.com/watch?v=" + data.next_song});
     })
     .catch(error => {
-        alert(error);
+      handleError();
     });
 }
 
@@ -61,10 +65,9 @@ function loadPlaylist() {
         para.addEventListener("click", moveToTop);
         playlist.appendChild(para);
       });
-
     })
     .catch(error => {
-        alert(error);
+      handleError();
     });
 }
 
@@ -74,16 +77,15 @@ function onInit() {
   console.log(time);
   button = document.getElementById("cut");
   playlist = document.getElementById("playlist");
-
   button.addEventListener("click", cut);
-  //load playlist
-  loadPlaylist();
-    //load ip address to create qr code
+  //load ip address to create qr code
   fetch("http://localhost:3000/ip/")
     .then(response => {
       return response.json();
     })
     .then(data => {
+      //load playlist
+      loadPlaylist();
       var qrcode = new QRCode(document.getElementById("qrcode"), {
       	text: data.ip,
       	width: 128,
@@ -92,11 +94,9 @@ function onInit() {
       	colorLight : "#ffffff",
       	correctLevel : QRCode.CorrectLevel.H
       });
-
-
     })
     .catch(error => {
-        alert(error);
+      handleError();
     });
 
 }

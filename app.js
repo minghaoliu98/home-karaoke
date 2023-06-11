@@ -4,12 +4,12 @@ const app = express()
 var fetchVideoInfo = require('updated-youtube-info');
 const port = 3000
 var playlist = [];
-var default_song = "7nCg51FXdp0";
+var default_song = "dQw4w9WgXcQ";
 var ip
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello World! Your Karaoke Server is RUNNING')
 })
 
 app.get('/move_to_top/:id', (req, res) => {
@@ -52,7 +52,7 @@ function deleteHelper(id) {
 app.get('/load/:id', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   fetchVideoInfo(req.params.id, function (err, videoInfo) {
-    if (err) throw new Error(err);
+    if (err) throw new Error('invalid video id:${id}');
     let data = {
       id: req.params.id,
       title: videoInfo.title
@@ -60,7 +60,6 @@ app.get('/load/:id', (req, res) => {
     playlist.push(data)
     res.json({"new_song": videoInfo.title});
   });
-
 })
 
 app.get('/ip', (req, res) => {
@@ -90,6 +89,7 @@ app.listen(port, () => {
   };
   fs.writeFileSync('./public/myip.json', JSON.stringify(data));
   console.log(`Example app listening on ${ip}`)
+  console.log(`Your Karaoke Sever is Running! Congrats`)
 })
 
 function getIPAdress() {

@@ -8,15 +8,18 @@
     ],
   "action": {
     "default_popup": "index.html",
-    "default_icon": "/img/logo.png"
+    "default_icon": "img/logo.png"
   },
   "background": {
-    "service_worker": "/js/background.js"
+    "service_worker": "js/background.js"
   },
   "commands": {
-    "inject-script": {
-      "suggested_key": "Ctrl+Shift+Y",
-      "description": "Inject a script on the page"
+    "next_song": {
+      "suggested_key": {
+         "default": "Alt+Shift+N"
+      },
+      "description": "Cut current video and move to next song"
     }
   }
+
 }
