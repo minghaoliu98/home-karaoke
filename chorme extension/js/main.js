@@ -21,9 +21,14 @@ function moveToTop() {
 
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function handleError() {
+  alert("You havn't set up the Server yet: \nPlease follow github.com/minghaoliu98/home-karaoke to install the server");
+  sleep(1000)
   chrome.tabs.create({ url: "https://github.com/minghaoliu98/home-karaoke"});
-  alert("You havn't set up the Server yet: \nPlease follow github.com/minghaoliu98/home-karaoke to install and start server");
 }
 
 function cut() {
@@ -98,5 +103,8 @@ function onInit() {
     .catch(error => {
       handleError();
     });
+}
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

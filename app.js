@@ -6,6 +6,8 @@ const port = 3000
 var playlist = [];
 var default_song = "dQw4w9WgXcQ";
 var ip
+const fileName = 'public/index.html';
+
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
@@ -52,13 +54,17 @@ function deleteHelper(id) {
 app.get('/load/:id', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   fetchVideoInfo(req.params.id, function (err, videoInfo) {
-    if (err) throw new Error('invalid video id:${id}');
-    let data = {
-      id: req.params.id,
-      title: videoInfo.title
-    };
-    playlist.push(data)
-    res.json({"new_song": videoInfo.title});
+    if (err) {
+      res.status(400).send("cannot find video given your link")
+      console.error(`invalid video id:${req.params.id}`);
+    } else {
+      let data = {
+        id: req.params.id,
+        title: videoInfo.title
+      };
+      playlist.push(data)
+      res.json({"new_song": videoInfo.title});
+    }
   });
 })
 
@@ -84,23 +90,38 @@ app.get('/next', (req, res) => {
 
 app.listen(port, () => {
   ip = "http://" + getIPAdress() + ":" + port;
-  let data = {
-    ip: ip
-  };
-  fs.writeFileSync('./public/myip.json', JSON.stringify(data));
   console.log(`Example app listening on ${ip}`)
   console.log(`Your Karaoke Sever is Running! Congrats`)
+  console.log(`Please do not close the window during your usage`)
+  fs.readFile(fileName, 'utf8', function(err, text) {
+    if (err) throw err;
+    let i = text.indexOf("##");
+    let j = text.lastIndexOf("##");
+    let result = text.slice(0, i + 2) + ip + text.slice(j);
+    fs.writeFile(fileName, result, 'utf8', function(err) {
+      if (err) throw err;
+      console.log('Nodejs front end is ready to use');
+    });
+  });
+
+
 })
 
 function getIPAdress() {
-    var interfaces = require('os').networkInterfaces();　　
-    for (var devName in interfaces) {　　　　
-        var iface = interfaces[devName];　　　　　　
-        for (var i = 0; i < iface.length; i++) {
-            var alias = iface[i];
-            if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
-                return alias.address;
-            }
-        }　　
-    }
+  //return YOURIPADDRESS
+  var os = require('os');
+  var interfaces = os.networkInterfaces();
+  //for WIFI connection
+  return interfaces.WLAN[0].address;
+
+  //for Ethernet connection
+  // for (var devName in interfaces) {　　　　
+  //       var iface = interfaces[devName];　　　　　　
+  //       for (var i = 0; i < iface.length; i++) {
+  //           var alias = iface[i];
+  //           if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+  //               return alias.address;
+  //           }
+  //       }　　
+  //   }
 }

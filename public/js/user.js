@@ -1,7 +1,7 @@
 'use strict';
 var tag;
 var player;
-var server_ip = " http://192.168.0.131:3000";
+var server_ip;
 var playlist;
 var first;
 var timer;
@@ -11,12 +11,14 @@ var pressTimer;
 document.addEventListener('DOMContentLoaded', init, { once: true });
 
 function init() {
+  server_ip = document.getElementById("ip").innerHTML;
+  server_ip = server_ip.slice(2, (server_ip.length-2))
+  console.log(server_ip)
   if (first == null) {
     playlist = document.getElementById("playlist");
     loadPlaylist();
     first = true;
   }
-
 }
 
 function removeSong(title, id) {
@@ -31,7 +33,7 @@ function removeSong(title, id) {
         loadPlaylist();
       })
       .catch(error => {
-          alert(error);
+        alert(error);
       });
   }
 
@@ -87,24 +89,28 @@ function loadPlaylist() {
       loadPlaylistItem(arr);
     })
     .catch(error => {
-        alert(error);
+     alert(error);
     });
 }
 
 function upload() {
   var pattern = /^((http|https|ftp):\/\/)/;
   var link = document.getElementById("link");
-  if (link && link.value) {
+  if (link && link.value && (youtube_parser(link.value) != false)) {
     var url = server_ip + "/load/" + youtube_parser(link.value);
+    console.log(youtube_parser(link.value))
     fetch(url)
       .then(response => {
+        if (response.status != 200) {
+          throw new Error("Youtube link cannot be founded")
+        }
         return response.json()
       })
       .then(data => {
         alert("Video: " + data.new_song + " has Loaded");
       })
       .catch(error => {
-          alert(error);
+        alert(error);
       });
   } else {
     alert("Please Enter a Youtube URL");
