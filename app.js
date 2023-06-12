@@ -1,7 +1,8 @@
 const express = require('express')
 const fs = require('fs')
-const app = express()
+var os = require('os');
 var fetchVideoInfo = require('updated-youtube-info');
+const app = express()
 const port = 3000
 var playlist = [];
 var default_song = "dQw4w9WgXcQ";
@@ -109,19 +110,18 @@ app.listen(port, () => {
 
 function getIPAdress() {
   //return YOURIPADDRESS
-  var os = require('os');
   var interfaces = os.networkInterfaces();
   //for WIFI connection
-  return interfaces.WLAN[0].address;
+  //return interfaces.WLAN[0].address;
 
   //for Ethernet connection
-  // for (var devName in interfaces) {　　　　
-  //       var iface = interfaces[devName];　　　　　　
-  //       for (var i = 0; i < iface.length; i++) {
-  //           var alias = iface[i];
-  //           if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
-  //               return alias.address;
-  //           }
-  //       }　　
-  //   }
+  for (var devName in interfaces) {　　　　
+        var iface = interfaces[devName];　　　　　　
+        for (var i = 0; i < iface.length; i++) {
+            var alias = iface[i];
+            if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+                return alias.address;
+            }
+        }　　
+    }
 }
