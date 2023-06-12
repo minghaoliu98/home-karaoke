@@ -5,9 +5,12 @@ Why you need this: If you have a home karaoke system that relies on YouTube as t
 What you need:
   1. Install Node.js on your computer: Download it from https://nodejs.org/en/.
   2. Install the latest version of Google Chrome Browser on your computer.
-  3. Download and run the appropriate version of the executable file from the "install resources" in the Git repository each time before using the Chrome extension.
-  4. Ensure that your smart devices and the computer with the extension are connected to the same internet or Wi-Fi network.
-  5. install the home-karaoke chorme extension from 
+  3. Download and run the appropriate version of the executable file from the Git repository each time before using the Chrome extension.
+          1. download file given your OS system 
+          2. if your PC is connected through LAN, down load the LAN version
+          3. if your pc is connected through WIFI, down load the WIFI version
+  5. Ensure that your smart devices and the computer with the extension are connected to the same internet or Wi-Fi network.
+  6. install the home-karaoke chorme extension from 
 How to use:
   1. Execute the downloaded executable file (ensure not to close the window while using the application).
   2. Open Google Chrome and add the extension from the Chrome extension folder.
