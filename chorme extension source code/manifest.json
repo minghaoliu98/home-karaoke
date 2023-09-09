@@ -19,6 +19,12 @@
          "default": "Alt+Shift+N"
       },
       "description": "Cut current video and move to next song"
+    },
+    "shuffle": {
+      "suggested_key": {
+         "default": "Alt+Shift+O"
+      },
+      "description": "Shuffle the playlist in server"
     }
   }
 

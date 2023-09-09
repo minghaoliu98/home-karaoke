@@ -86,6 +86,24 @@ app.get('/next', (req, res) => {
   }
 })
 
+app.get('/shuffle', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  var data = shuffle();
+  console.log(`The playlist is randomly shuffled`)
+
+  res.json({"status_code": 200})
+})
+
+function shuffle() {
+  let currentIndex = playlist.length,  randomIndex;
+  while (currentIndex > 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [playlist[currentIndex], playlist[randomIndex]] = [
+      playlist[randomIndex], playlist[currentIndex]];
+  }
+}
+
 app.listen(port, () => {
   ip = "http://" + getIPAdress() + ":" + port;
   console.log(`Example app listening on ${ip}`)

@@ -6,6 +6,23 @@ chrome.commands.onCommand.addListener(function (command) {
     }
 });
 
+chrome.commands.onCommand.addListener(function (command) {
+    if (command == "shuffle") {
+      shuffle();
+    }
+});
+
+function shuffle() {
+  var url = "http://localhost:3000/shuffle/";
+  fetch(url)
+    .then(response => {
+      return response.json()
+    })
+    .catch(error => {
+      chrome.tabs.create({ url: "https://github.com/minghaoliu98/home-karaoke"});
+    });
+}
+
 function cut() {
   var url = "http://localhost:3000/next/";
   fetch(url)
@@ -20,6 +37,5 @@ function cut() {
     })
     .catch(error => {
       chrome.tabs.create({ url: "https://github.com/minghaoliu98/home-karaoke"});
-      alert("You havn't set up the Server yet: \nPlease follow github.com/minghaoliu98/home-karaoke to install and start server");
     });
 }
